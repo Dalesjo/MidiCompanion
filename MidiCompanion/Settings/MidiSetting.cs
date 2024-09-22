@@ -10,14 +10,14 @@ namespace MidiCompanion.Settings;
 public class MidiSetting
 {
     [Required]
-    public required Channel Channel { get; set; }
+    public required byte Channel { get; set; }
 
     [Required]
-    public required int ControlChange { get; set; }
+    public required byte ControlChange { get; set; }
 
     [Required]
-    public required int Min { get; set; } = 0;
+    public required byte Min { get; set; } = 0;
 
     [Required]
-    public required int Max { get; set; } = 127;
+    public required byte Max { get; set; } = 127;
 }

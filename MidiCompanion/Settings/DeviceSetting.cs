@@ -10,18 +10,21 @@ namespace MidiCompanion.Settings;
 public class DeviceSetting
 {
     [Required]
-    public required string Device { get; set; }
+    public required string Name { get; set; }
+
+    public string? DeviceId { get; set;}
 
     [Required]
     [ValidateEnumeratedItems]
-    public required List<FaderSetting> Faders { get; set; }
+    public required List<FaderSetting> Faders { get; set; } = [];
 
     [Required]
     [ValidateEnumeratedItems]
-    public required List<ButtonSetting> Buttons { get; set; }
+    public required List<ButtonSetting> Buttons { get; set; } = [];
+
     [Required]
     [ValidateEnumeratedItems]
-    public required List<RotarySetting> Rotary { get; set; }
+    public required List<RotarySetting> Rotary { get; set; } = [];
 
 
 }

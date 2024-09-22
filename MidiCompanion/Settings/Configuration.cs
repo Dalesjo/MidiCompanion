@@ -20,5 +20,5 @@ public class Configuration
 
     [Required]
     [ValidateEnumeratedItems]
-    public required List<DeviceSetting> Devices { get; set; }
+    public required List<DeviceSetting> Devices { get; set; } = [];
 }

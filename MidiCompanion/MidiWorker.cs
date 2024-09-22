@@ -4,7 +4,8 @@ using Microsoft.Extensions.Options;
 using MidiCompanion.Settings;
 using RtMidi.Core;
 using RtMidi.Core.Devices;
-using RtMidi.Core.Enums;
+using Windows.Devices.Enumeration;
+using Windows.Devices.Midi;
 
 namespace MidiCompanion;
 public class MidiWorker(
@@ -16,37 +17,13 @@ public class MidiWorker(
 {
 
     private readonly List<Device> devices = [];
+    private DeviceWatcher deviceWatcher;
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-
-        ConnectAllMidiDevices();
-
-
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            try
-            {
-                foreach(var device in devices)
-                {
-                    if(!device.TestConnection())
-                    {
-                        log.LogWarning($"Device is disconnected. Reconnecting...");
-                    }
-                    else
-                    {
-                        log.LogWarning($"Device is connected...");
-                    }
-                }
-                
-            }
-            catch (Exception ex)
-            {
-                log.LogError(ex, "Error in MidiWorker");
-  
-            }
-            await Task.Delay(10000);
-        }
+        await PrintAllMidiDevices();
+        await ConnectAllMidiDevices();
+        await stoppingToken.WaitForCancellationAsync();
     }
 
     private void DisconnectAllMidiDevices()
@@ -59,39 +36,28 @@ public class MidiWorker(
         devices.Clear();
     }
 
-    private void ConnectAllMidiDevices()
+    private async Task ConnectAllMidiDevices()
     {
-        var deviceManager = MidiDeviceManager.Default;
-        var midiDevices = deviceManager.InputDevices;
-        
-        foreach (var midiDevice in midiDevices)
+
+
+        foreach (var deviceConfig in configuration.Value.Devices)
         {
-            var deviceName = midiDevice.Name.Trim();
-            var config = configuration.Value.Devices.FirstOrDefault(x => x.Device == deviceName);
-
-            if(config == null)
-            {
-                log.LogInformation($"Available Device: '{deviceName}'");
-                continue;
-            }
-
             var deviceLogger = loggerFactory.CreateLogger<Device>();
-            var device = new Device(config, sender, deviceLogger);
-            device.Connect();
+            var device = new Device(deviceConfig, sender, deviceLogger);
+            await device.Connect();
             devices.Add(device);
 
-            log.LogInformation($"Available Device: '{deviceName}' (Connected)");
         }
+
     }
 
-    private void PrintAllMidiDevices()
+    
+    private async Task PrintAllMidiDevices()
     {
-        var deviceManager = MidiDeviceManager.Default;
-        var inputDevices = deviceManager.InputDevices;
-
-        foreach (var device in inputDevices)
+        var midiDevices = await DeviceInformation.FindAllAsync(MidiInPort.GetDeviceSelector());
+        foreach (var midiDevice in midiDevices)
         {
-            log.LogInformation($"Available Device: '{device.Name}'");
+            log.LogInformation($"Available Device: '{midiDevice.Name}', Id: '{midiDevice.Id}'");
         }
     }
 }
