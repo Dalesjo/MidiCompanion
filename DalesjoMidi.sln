@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtemMidi", "AtemMidi\AtemMidi.csproj", "{0970F8ED-7618-4FED-8484-EE57E6D74834}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MidiCompanion", "MidiCompanion\MidiCompanion.csproj", "{37B03E96-F648-4E80-9945-D9361CE74DA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidiCompanion", "MidiCompanion\MidiCompanion.csproj", "{37B03E96-F648-4E80-9945-D9361CE74DA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0970F8ED-7618-4FED-8484-EE57E6D74834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0970F8ED-7618-4FED-8484-EE57E6D74834}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0970F8ED-7618-4FED-8484-EE57E6D74834}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0970F8ED-7618-4FED-8484-EE57E6D74834}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37B03E96-F648-4E80-9945-D9361CE74DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{37B03E96-F648-4E80-9945-D9361CE74DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B03E96-F648-4E80-9945-D9361CE74DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
