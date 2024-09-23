@@ -12,6 +12,8 @@ First, run the wizar for bitfocus and enable OSC. In appsettings.json fill in th
 
 Launch MidiCompanion.exe. it will list all midi devices and their DeviceID. Copy the deviceId and put it in your appsettings.json. Restart MidiCompanion.exe and it will not write out any keypress you do on your mididevice. You can now configure 3 different kinds of midi commands.
 
+![Example when starting up MidiCompanion.exe](images/startup.png)
+
 ## Button
 A button have two states, pressed and released. you specify which CC and Channel (1-16).
 In the OSC section specify which Page/Row/column in companion that should be pressed.
