@@ -18,14 +18,38 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Install GitVersion
+      run: dotnet tool install --global GitVersion.Tool
+
+    - name: Determine Version
+      id: gitversion
+      run: gitversion /output json /showvariable FullSemVer   
+
+    - name: Update Version in Project File
+      run: |
+        VERSION=${{ steps.gitversion.outputs.FullSemVer }}
+        sed -i 's/<Version>.*<\/Version>/<Version>'$VERSION'<\/Version>/' MidiCompanion/MidiCompanion.csproj
 
     - name: Publish
       run: dotnet publish --configuration Release --output ./publish /p:PublishSingleFile=true /p:RuntimeIdentifier=win-x86 /p:SelfContained=true /p:TargetFramework=net8.0-windows10.0.17763.0
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: published-app
-        path: ./publish
+        tag_name: ${{ steps.gitversion.outputs.FullSemVer }}
+        release_name: Release ${{ steps.gitversion.outputs.FullSemVer }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./publish
+        asset_name: published-app.zip
+        asset_content_type: application/zip
