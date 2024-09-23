@@ -23,7 +23,7 @@ jobs:
 
     - name: Determine Version
       id: gitversion
-      run: gitversion /output json /showvariable FullSemVer   
+      run: dotnet-gitversion /output json /showvariable FullSemVer
 
     - name: Update Version in Project File
       run: |
