@@ -1,0 +1,31 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - master  # Change this to your default branch if it's not 'main'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Publish
+      run: dotnet publish --configuration Release --output ./publish /p:PublishSingleFile=true /p:RuntimeIdentifier=win-x86 /p:SelfContained=true /p:TargetFramework=net8.0-windows10.0.17763.0
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: published-app
+        path: ./publish
