@@ -29,6 +29,10 @@ jobs:
       id: gitversion
       run: dotnet-gitversion /output json /showvariable FullSemVer
 
+    - name: Debug GitVersion Output
+      run: |
+        Write-Host "GitVersion FullSemVer: ${{ steps.gitversion.outputs.FullSemVer }}"
+
     - name: Update Version in Project File
       run: |
         $version = '${{ steps.gitversion.outputs.FullSemVer }}'
