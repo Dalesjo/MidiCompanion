@@ -29,8 +29,8 @@ jobs:
 
     - name: Update Version in Project File
       run: |
-        VERSION=${{ steps.gitversion.outputs.FullSemVer }}
-        sed -i 's/<Version>.*<\/Version>/<Version>'$VERSION'<\/Version>/' MidiCompanion/MidiCompanion.csproj
+        $version = '${{ steps.gitversion.outputs.FullSemVer }}'
+        (Get-Content MidiCompanion/MidiCompanion.csproj) -replace '<Version>.*<\/Version>', "<Version>$version</Version>" | Set-Content MidiCompanion/MidiCompanion.csproj
 
     - name: Publish
       run: dotnet publish --configuration Release --output ./publish /p:PublishSingleFile=true /p:RuntimeIdentifier=win-x86 /p:SelfContained=true /p:TargetFramework=net8.0-windows10.0.17763.0

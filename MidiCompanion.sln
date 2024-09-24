@@ -5,6 +5,11 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidiCompanion", "MidiCompanion\MidiCompanion.csproj", "{37B03E96-F648-4E80-9945-D9361CE74DA3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B711AE66-CDF8-4094-8C99-A16D69203575}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-and-publish.yml = .github\workflows\build-and-publish.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
