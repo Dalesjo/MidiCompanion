@@ -1,0 +1,7 @@
+# GitVersion.yml
+mode: ContinuousDeployment
+branches:
+  master:
+    tag: ''
+ignore:
+  sha: []

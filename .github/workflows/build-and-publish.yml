@@ -29,6 +29,11 @@ jobs:
       id: gitversion
       run: dotnet-gitversion /output json /showvariable FullSemVer
 
+    - name: List Tags and Current Commit
+      run: |
+        git tag
+        git log -1
+
     - name: Debug GitVersion Output
       run: |
         Write-Host "GitVersion FullSemVer: ${{ steps.gitversion.outputs.FullSemVer }}"
