@@ -3,11 +3,9 @@ mode: ContinuousDeployment
 branches:
   master:
     increment: Inherit
-    prevent-increment-of-merged-branch-version: true
-    track-merge-target: false
     regex: master
     source-branches: ['release', 'hotfix', 'support']
     is-mainline: true
     is-release-branch: false
 ignore:
-  sha: []
+  sha: [] 
