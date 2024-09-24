@@ -5,7 +5,6 @@ branches:
     increment: Inherit
     regex: master
     source-branches: ['release', 'hotfix', 'support']
-    is-mainline: true
     is-release-branch: false
 ignore:
   sha: [] 
