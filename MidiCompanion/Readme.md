@@ -18,8 +18,7 @@ Launch MidiCompanion.exe. it will list all midi devices and their DeviceID. Copy
 A button have two states, pressed and released. you specify which CC and Channel (1-16).
 In the OSC section specify which Page/Row/column in companion that should be pressed.
 
-Both the Pressed and release action used.
-
+Both the Pressed and release action will be trigged when pressing and releasing the button on the midi device.
 
 ```json
 {
@@ -36,7 +35,6 @@ Both the Pressed and release action used.
 ```
 
 ## Rotary
-
 
 
 ```json

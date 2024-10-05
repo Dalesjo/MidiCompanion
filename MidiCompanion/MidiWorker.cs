@@ -17,13 +17,13 @@ public class MidiWorker(
 {
 
     private readonly List<Device> devices = [];
-    private DeviceWatcher deviceWatcher;
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await PrintAllMidiDevices();
         await ConnectAllMidiDevices();
         await stoppingToken.WaitForCancellationAsync();
+        DisconnectAllMidiDevices();
     }
 
     private void DisconnectAllMidiDevices()

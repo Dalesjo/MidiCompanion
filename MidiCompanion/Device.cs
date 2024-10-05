@@ -16,7 +16,6 @@ internal class Device(
     private MidiInPort? device;
     private DeviceWatcher? deviceWatcher;
     private string? deviceId;
-    private bool Connecting = false;
 
     public async Task Connect()
     {
@@ -60,7 +59,6 @@ internal class Device(
     {
         try
         {
-            Connecting = true;
             if (device != null)
             {
                 Disconnect();
@@ -95,7 +93,7 @@ internal class Device(
         } 
         finally
         {
-            Connecting = false;
+
         }
     }
 
@@ -123,7 +121,7 @@ internal class Device(
         HandleMessage(controlChangeMessage);
     }
 
-    private async Task<string?> FindDeviceId(string name)
+    private static async Task<string?> FindDeviceId(string name)
     {
         var midiDevices = await DeviceInformation.FindAllAsync(MidiInPort.GetDeviceSelector());
 
@@ -217,20 +215,5 @@ internal class Device(
 
         sender.SetVariable(fader.Osc.Variable, oscValue);
         sender.PressButton(fader.Osc.Page, fader.Osc.Row, fader.Osc.Column);
-    }
-
-    private static IMidiInputDevice GetMidiInput(string deviceName)
-    {
-        var deviceManager = MidiDeviceManager.Default;
-        var inputDevice = deviceManager.InputDevices.FirstOrDefault(d => d.Name.Trim() == deviceName.Trim());
-
-        if (inputDevice == null)
-        {
-            throw new Exception($"Device {deviceName} not found");
-        }
-
-        var device = inputDevice.CreateDevice();
-
-        return device;
     }
 }
