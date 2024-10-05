@@ -16,12 +16,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0  # Disable shallow fetch to ensure GitVersion works correctly
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
@@ -74,5 +74,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./publish/published-app.zip
-        asset_name: MidiCompanion-${{ steps.gitversion.outputs.FullSemVer }}.zip
+        asset_name: ${{ github.event.repository.name }}-${{ steps.gitversion.outputs.FullSemVer }}.zip
         asset_content_type: application/zip
