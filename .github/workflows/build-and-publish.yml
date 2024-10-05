@@ -56,10 +56,6 @@ jobs:
     - name: Zip Published Files
       run: Compress-Archive -Path ./publish/* -DestinationPath ./publish/published-app.zip
 
-    - name: Extract Repository Name
-      id: extract_repo_name
-      run: echo "REPO_NAME=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_ENV
-
     - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
@@ -78,5 +74,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./publish/published-app.zip
-        asset_name: ${{ env.REPO_NAME }}-${{ steps.gitversion.outputs.FullSemVer }}.zip
+        asset_name: MidiCompanion-${{ steps.gitversion.outputs.FullSemVer }}.zip
         asset_content_type: application/zip
