@@ -19,6 +19,9 @@ public class Configuration
     public int Port { get; set; }
 
     [Required]
+    public int LocalPort { get; set; }
+
+    [Required]
     [ValidateEnumeratedItems]
     public required List<DeviceSetting> Devices { get; set; } = [];
 }

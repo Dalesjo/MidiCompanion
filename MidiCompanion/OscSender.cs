@@ -23,9 +23,10 @@ public class OscSender : IDisposable
         
         var address = IPAddress.Parse(configuration.Value.Companion);
         var port = configuration.Value.Port;
+        var localPort = configuration.Value.LocalPort;
 
         log.LogInformation($"Connecting to Companion {address}:{port}");
-        _sender = new Rug.Osc.OscSender(address, port);
+        _sender = new Rug.Osc.OscSender(address, localPort,port);
         _sender.Connect();
     }
 
