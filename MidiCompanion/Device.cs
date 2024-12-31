@@ -174,8 +174,33 @@ internal class Device(
             return;
         }
 
+        var push = deviceSetting.Push.FirstOrDefault(x => x.Midi.Channel == channel && x.Midi.ControlChange == control);
+        if(push != null)
+        {
+            SendPush(push, channel, control, value);
+            return;
+        }
+
         log.LogWarning($"No Fader/button/rotary found for channel {channel} and control {control} with value {msg.ControlValue}");
         return;
+    }
+
+    private void SendPush(PushSetting push, byte channel, byte control, byte value)
+    {
+        
+
+        if(value == 127)
+        {
+            log.LogInformation($"Channel {channel}, CC {control} with value {value}, push step 1 {push.Osc.Page}/{push.Osc.Row}/{push.Osc.Column}");
+            sender.Step(push.Osc.Page, push.Osc.Row, push.Osc.Column, 1);
+        }
+        else
+        {
+            log.LogInformation($"Channel {channel}, CC {control} with value {value}, push step 2 {push.Osc.Page}/{push.Osc.Row}/{push.Osc.Column}");
+            sender.Step(push.Osc.Page, push.Osc.Row, push.Osc.Column, 0);
+        }
+
+        sender.Button(push.Osc.Page, push.Osc.Row, push.Osc.Column, "PRESS");
     }
 
     private void SendRotary(RotarySetting rotary, byte channel, byte control, byte value)

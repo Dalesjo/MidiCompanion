@@ -72,3 +72,22 @@ Both the Pressed and release action will be trigged when pressing and releasing 
     }
 }
 ```
+
+## Push
+Push buttons jumps between step 1 and step 2 on OSC
+
+```json
+"Push": [
+  {
+    "Midi": {
+      "Channel": 1,
+      "ControlChange": 81
+    },
+    "Osc": {
+      "Page": 3,
+      "Row": 1,
+      "Column": 3
+    }
+  }
+]
+```

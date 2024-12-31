@@ -26,5 +26,9 @@ public class DeviceSetting
     [ValidateEnumeratedItems]
     public required List<RotarySetting> Rotary { get; set; } = [];
 
+    [Required]
+    [ValidateEnumeratedItems]
+    public required List<PushSetting> Push { get; set; } = [];
+
 
 }

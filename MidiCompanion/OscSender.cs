@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace MidiCompanion;
 public class OscSender : IDisposable
@@ -73,6 +74,15 @@ public class OscSender : IDisposable
     public void RotateRight(int page, int row, int column)
     {
         Button(page, row, column, "ROTATE-RIGHT");
+    }
+
+    public void Step(int page, int row, int column, int step)
+    {
+        var address = $"/location/{page}/{row}/{column}/step";
+        var message = new OscMessage(address,step);
+
+        CheckState();
+        _sender.Send(message);
     }
 
     public void Button(int page, int row, int column, string action)
